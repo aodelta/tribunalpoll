@@ -16,7 +16,7 @@ export class Checking {
     
         loopRoleOwned:
         for (const roleOwned of guildMember.roles.cache) {
-            if(roleOwned[1].id === constants.default.roles.name.member) {
+            if(roleOwned[1].name === constants.default.roles.name.member) {
                 found = true;
                 break;
             }

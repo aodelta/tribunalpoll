@@ -53,7 +53,7 @@ export class Embed {
         embeded.setAuthor(poll.author.tag, poll.author.avatarURL());
         embeded.setTitle(poll.type + " | " + poll.name);
         embeded.addField("Raison", poll.reason);
-        embeded.addField("Answers", poll.responses.has + "/" + poll.responses.on);
+        embeded.addField("Réponses", poll.responses.has + "/" + poll.responses.on);
         embeded.setFooter("Absynthium Tribunal Poll | request #" + poll.pollID);
         embeded.setTimestamp();
     
@@ -68,8 +68,6 @@ export class Embed {
     }
 
     static async RefreshPollmsg(poll: Poll, msg: Discord.Message) {
-        console.log("num of reponses : " + poll.responses.has + " on " + poll.responses.on);
-        
         let embeded = new Discord.MessageEmbed();
         embeded.setColor(constants.colors.purple);
         embeded.setAuthor(poll.author.tag, poll.author.avatarURL());
@@ -78,7 +76,7 @@ export class Embed {
         else
             embeded.setTitle(`${poll.type}  |  ${poll.name}  |  TERMINEE`);
         embeded.addField("Raison", poll.reason);
-        embeded.addField("Answers", poll.responses.has + "/" + poll.responses.on);
+        embeded.addField("Réponses", poll.responses.has + "/" + poll.responses.on);
         embeded.setFooter("Absynthium Tribunal Poll | request #" + poll.pollID);
         embeded.setTimestamp();
     
@@ -92,12 +90,11 @@ export class Embed {
 
         let decision: string = "";
 
-        if(poll.type === TypeOfPoll.UnbanRequest) {
+        if(poll.type === TypeOfPoll.UnbanRequest) 
             poll.decision.decision === TypeOfDecision.Unban ? decision = 'UNBAN' : decision = 'NON UNBAN';
-        }
-        else if (poll.type === TypeOfPoll.Surveillance || poll.type === TypeOfPoll.Analyse) {
+        else if (poll.type === TypeOfPoll.Surveillance || poll.type === TypeOfPoll.Analyse)
             poll.decision.decision === TypeOfDecision.Ban ? decision = 'BAN' : decision = 'NON BAN';
-        }
+        
         embeded.setTitle(poll.name + " | " + decision);
 
         let checkMembers = [], xMembers = [];
@@ -121,8 +118,10 @@ export class Embed {
         
         for(const channel of poll.msg.guild.channels.cache) {
             if(channel[1].type !== "text") continue
+            if(channel[1].name === constants.default.channels.name.decision)
+                (channel[1] as Discord.TextChannel).send({embed:embeded})
             for(const channelID of config.server.channels.decision) {
-                if(channel[1].id === channelID || channel[1].name === constants.default.channels.name.decision) {
+                if(channel[1].id === channelID) {
                     (channel[1] as Discord.TextChannel).send({embed:embeded})
                 }
             }

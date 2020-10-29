@@ -32,7 +32,7 @@ export class Poll {
     msg: Discord.Message;
     readonly name: string;
     readonly reason: string;
-    readonly author :Discord.User;
+    readonly author: Discord.User;
     readonly type: TypeOfPoll;
     readonly pollID: number;
 
@@ -120,7 +120,7 @@ export class Poll {
             
             switch(poll.type) {
                 case TypeOfPoll.UnbanRequest: {
-                    if(poll.decision.check.count === poll.responses.on)
+                    if(poll.decision.check.count - 1 === poll.responses.on)
                         poll.decision.decision = TypeOfDecision.Unban;
                     else
                         poll.decision.decision = TypeOfDecision.Ban;
@@ -128,7 +128,7 @@ export class Poll {
                 }
                 case TypeOfPoll.Analyse:
                 case TypeOfPoll.Surveillance: {
-                    if(poll.decision.check.count === poll.responses.on)
+                    if(poll.decision.check.count - 1 === poll.responses.on)
                         poll.decision.decision = TypeOfDecision.Ban;
                     else
                         poll.decision.decision = TypeOfDecision.NoBan;
@@ -136,7 +136,7 @@ export class Poll {
                 }
                 case TypeOfPoll.Complaint:
                 case TypeOfPoll.Other:
-                    if(poll.decision.check.count === poll.responses.on)
+                    if(poll.decision.check.count - 1 === poll.responses.on)
                         poll.decision.decision = TypeOfDecision.Accepted;
                     else
                         poll.decision.decision = TypeOfDecision.Rejected;

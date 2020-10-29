@@ -1,6 +1,7 @@
 import Discord from 'discord.js';
 
 import { CommandHandler } from './command_handler';
+import * as Action from './action'
 
 import { config, constants } from './../config'
 
@@ -19,12 +20,6 @@ export class Client {
         this.bot.on('ready', () => {
             console.log("ready");
             this.bot.user.setActivity({name: "[ONLINE]Juge avec le Tribunal :eyes:", type: 'CUSTOM_STATUS'});
-
-            for(const guild of this.bot.guilds.cache) {
-                for(const member of guild[1].members.cache) {
-                    console.log(member[1].user.username);
-                }
-            }
         });
 
         this.bot.on('message', (msg) => {
@@ -35,6 +30,17 @@ export class Client {
                     || config.server.channels.entry_cmd.find((id) => config.server.channels.entry_cmd === id) != undefined)) return;
             this.commandHandler.handleMessage(this.bot, msg);
         });
+
+        this.bot.on('messageReactionAdd', (reaction, user) => {
+            Action.Action.onReactionAdded(reaction, (user as Discord.User));
+        });
+        this.bot.on('messageReactionRemove', (reaction, user) => {
+            Action.Action.onReactionRemoved(reaction, (user as Discord.User));
+        });
+        this.bot.on('messageDelete', (msg) => {
+            Action.Action.onMessageDeleted((msg as Discord.Message));
+        });
+        
     }
 
     public login(token: string): Promise<string> {

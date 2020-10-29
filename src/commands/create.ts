@@ -31,7 +31,6 @@ export class Create implements Command {
             for(const dChannel of cmdCtx.msg.guild.channels.cache) {
                 if(dChannel[1].type !== "text") continue
                 if(dChannel[1].name == constants.default.channels.name.poll) {
-                    console.log("checkpoint");
                     channel = dChannel[1];
                     break;
                 }

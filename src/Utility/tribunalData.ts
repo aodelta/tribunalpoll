@@ -4,7 +4,6 @@ import { config, constants } from '../../config'
 
 export async function TribunalMemberCount(guild: Discord.Guild) {
     let membersSet = new Set<Discord.GuildMember>();
-
     /*
     For each role 'dRole' in the server
         if (the name of the role 'dRole' is the default for the TribunalMember role defined in the config.ts file
@@ -29,7 +28,6 @@ export async function TribunalMemberCount(guild: Discord.Guild) {
                 }
             }
         }
-
     return Array.from(membersSet);
 }
 
