@@ -4,22 +4,13 @@ import { Poll, TypeOfPoll } from './poll'
 import { Status } from './Utility/checking'
 
 export class Log {
-    static async LogBase(msg: Discord.Message, embeded: Discord.MessageEmbed) {
+    static async Log(msg: Discord.Message, embeded: Discord.MessageEmbed) {
         for(const channel of msg.guild.channels.cache) {
             if(channel[1].type !== "text") continue
-            for(const channelID of config.server.channels.log_base) {
-                if(channel[1].id === channelID || channel[1].name === constants.default.channels.name.log_base) {
-                    (channel[1] as Discord.TextChannel).send({embed: embeded});
-                }
-            }
-        }
-    }
-
-    static async LogAdvanced(msg: Discord.Message, embeded: Discord.MessageEmbed) {
-        for(const channel of msg.guild.channels.cache) {
-            if(channel[1].type !== "text") continue
-            for(const channelID of config.server.channels.log_advanced) {
-                if(channel[1].id === channelID || channel[1].name === constants.default.channels.name.log_advanced) {
+            if(channel[1].name === constants.default.channels.name.log)
+                (channel[1] as Discord.TextChannel).send({embed:embeded})
+            for(const channelID of config.server.channels.log) {
+                if(channel[1].id === channelID || channel[1].name === constants.default.channels.name.log) {
                     (channel[1] as Discord.TextChannel).send({embed: embeded});
                 }
             }
@@ -45,7 +36,7 @@ export class Log {
         embeded.addField("Date", new Date());
         embeded.setTimestamp();
         
-        this.LogBase(msg, embeded);
+        this.Log(msg, embeded);
     }
 
     static async LogWhenDeletingPoll(msg: Discord.Message, poll: Poll, user: Discord.User) {
@@ -86,7 +77,7 @@ export class Log {
     
         embeded.setTimestamp();
 
-        this.LogBase(poll.msg, embeded);
+        this.Log(poll.msg, embeded);
     }
 
     static async LogWhenReacted(msg: Discord.Message, user: Discord.User, poll: Poll, reaction: Discord.MessageReactionResolvable, status: Status) {
@@ -102,7 +93,7 @@ export class Log {
         embeded.addField("Status", status);
         embeded.setTimestamp();
         
-        this.LogBase(poll.msg, embeded);
+        this.Log(poll.msg, embeded);
     }
 
     static async LogWhenUnreacted(msg: Discord.Message, user: Discord.User, poll: Poll, reaction: Discord.MessageReactionResolvable, status: Status) {
@@ -118,6 +109,6 @@ export class Log {
         embeded.addField("Status", status);
         embeded.setTimestamp();
 
-        this.LogBase(poll.msg, embeded);
+        this.Log(poll.msg, embeded);
     }
 }

@@ -4,8 +4,7 @@ export let config = {
             entry_cmd: [],
             poll: "",
             decision: [],
-            log_base: [],
-            log_advanced: []
+            log: []
         },
         roles: {
             member: [],
@@ -13,7 +12,7 @@ export let config = {
         },
     },
     poll: {
-        latestID : 0
+        latestID : 1
     },
 }
 
@@ -33,11 +32,10 @@ export const constants = {
     default: {
         channels: {
             name: {
-                entry_cmd:     "➖tribunal_chat",
-                poll:         "➖tribunal_poll",
-                decision:     "➖tribunal_decision",
-                log_base:     "➖tribunal_log",
-                log_advanced: "➖tribunal_log_advanced"
+                entry_cmd: "➖tribunal_chat",
+                poll:      "➖tribunal_poll",
+                decision:  "➖tribunal_decision",
+                log:       "➖tribunal_log",
             }
         },
         roles: {
