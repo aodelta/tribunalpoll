@@ -5,6 +5,11 @@ import * as Action from './action'
 
 import { config, constants } from './../config'
 
+
+import { defineArrayWithQuotesLimiter } from './Utility/funcHelper'
+
+
+
 export class Client {
     bot: Discord.Client;
     private commandHandler: CommandHandler;
@@ -24,7 +29,7 @@ export class Client {
 
         this.bot.on('message', (msg) => {
             if(msg.author.bot
-                || msg.channel.type != 'text'
+                || msg.channel.type !== 'text'
                 || !msg.content.startsWith(this.commandHandler.prefix)
                 || !(msg.channel.name === constants.default.channels.name.entry_cmd
                     || config.server.channels.entry_cmd.find((id) => config.server.channels.entry_cmd === id) != undefined)) return;

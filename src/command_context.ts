@@ -1,6 +1,6 @@
 import Discord from 'discord.js'
 
-import { defineArrayWithQuotesLimiterv2 } from './Utility/funcHelper'
+import { defineArrayWithQuotesLimiter } from './Utility/funcHelper'
 
 export class CommandContext {
     readonly command: string;
@@ -21,10 +21,8 @@ export class CommandContext {
         this.args = msg.toString().slice(prefix.length).trim().split(/ +/g);
 
         let temp: string[];
-        defineArrayWithQuotesLimiterv2(this.args.join(" ")).then((value) => {
-            if(value.ok) {
-                temp = value.args
-            }
+        defineArrayWithQuotesLimiter(this.args.join(" ")).then((args) => {
+            temp = args
         });
         this.qArgs = temp;
         this.command = this.args[0].toLowerCase();
