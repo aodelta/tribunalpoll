@@ -31,9 +31,6 @@ export class Embed {
         }
         embeded.setTimestamp();
 
-        if(logAdvanced)
-            Log.LogAdvanced(msg, embeded);
-
         let msgback: Discord.Message;
 
         msg.channel.send({embed:embeded}).then(async (promise_msgback) => {

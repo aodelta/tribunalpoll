@@ -18,13 +18,8 @@ export class CommandContext {
 
         this.msg = msg;
         this.prefix = prefix;
-        this.args = msg.toString().slice(prefix.length).trim().split(/ +/g);
+        this.args = defineArrayWithQuotesLimiter(msg.content);
 
-        let temp: string[];
-        defineArrayWithQuotesLimiter(this.args.join(" ")).then((args) => {
-            temp = args
-        });
-        this.qArgs = temp;
         this.command = this.args[0].toLowerCase();
     }
 }
