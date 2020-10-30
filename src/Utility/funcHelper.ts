@@ -1,4 +1,5 @@
-export function defineArrayWithQuotesLimiter(sentence: string): string[] {
+// Quotes Split
+export function qSplit(sentence: string): string[] {
     let buffer: string = ""; // The sentence who will be add to the final array, the one between quotes
 
     let isInQuotes: boolean = false;
